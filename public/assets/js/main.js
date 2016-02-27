@@ -15,14 +15,15 @@
                 .append($('<p></p>').text('Occupied by: ' + login.occupiedBy))
                 .click(function(e) {
                     selectedLogin = login;
-                    console.log(selectedLogin);
+                    vacateLogin(login);
                 });
             } else {
                 $loginBox
                 .append('<p>Vacant</p>')
                 .click(function(e) {
                     selectedLogin = login;
-                    console.log(selectedLogin);
+                    $('#occupy-modal .login-name').text(login.name);
+                    $('#occupy-modal').modal('show');
                 });
             }
             $('#all-logins').append($loginBox);
@@ -38,12 +39,18 @@
     }
 
     function occupyLogin(login) {
-
+        console.log('occupying login');
+        console.log(login);
     }
 
     function vacateLogin(login) {
-        
+        console.log('vacating login');
+        console.log(login);
     }
+
+    $('#occupy-modal #occupy-button').click(function(e) {
+        occupyLogin(selectedLogin);
+    });
 
     // initialize
     getLogins();

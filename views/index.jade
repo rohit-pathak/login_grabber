@@ -11,20 +11,18 @@ html
       
       div#all-logins
 
-      // Modal
-      #occupy.modal.fade(tabindex='-1', role='dialog', aria-labelledby='occupyLabel')
-        .modal-dialog(role='document')
+      // Occupy Modal
+      #occupy-modal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='occupyLabel')
+        .modal-dialog.modal-sm(role='document')
           .modal-content
-            .modal-header
-              button.close(type='button', data-dismiss='modal', aria-label='Close')
-                span(aria-hidden='true') ×
-              h4#occupyLabel.modal-title You are occupying []
             .modal-body
+              h4#occupyLabel.modal-title You are occupying 
+                span.login-name
+              br
               input#occupier.form-control(type='text', placeholder="What is your name?")
             .modal-footer
               button.btn.btn-default(type='button', data-dismiss='modal') Cancel
-              button.btn.btn-primary(type='button') Occupy
-
+              button#occupy-button.btn.btn-primary(type='button') Occupy
 
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js")
     script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js", integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS", crossorigin="anonymous")
