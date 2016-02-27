@@ -2,20 +2,33 @@
 
 var express = require('express');
 var bodyParser = require('body-parser');
+var _ = require('underscore');
 
 var app = express();
-var GLOBAL_PASSWORD = 'affinitas';
+var GLOBAL_PASSWORD = 'affinitas'; // TODO: not implemented yet
 var logins = [
-    {id: 1, name: 'QlikView1', occupied:false, occupiedBy:''},
-    {id: 2, name: 'QlikView2', occupied:false, occupiedBy:''},
-    {id: 3, name: 'QlikView3', occupied:false, occupiedBy:''},
-    {id: 4, name: 'QlikView4', occupied:true, occupiedBy:'shreyans'},
-    {id: 5, name: 'QlikView5', occupied:false, occupiedBy:''},
+    {id: 743, name: 'QlikView1', occupied:false, occupiedBy:''},
+    {id: 234, name: 'QlikView2', occupied:false, occupiedBy:''},
+    {id: 323, name: 'QlikView3', occupied:false, occupiedBy:''},
+    {id: 453, name: 'QlikView4', occupied:true, occupiedBy:'shreyans'},
+    {id: 557, name: 'QlikView5', occupied:false, occupiedBy:''},
 ];
 
-var grabLogin = function(login) {
-    console.log('grabbing login');
-    console.log(login);
+var updateLogin = function(data) {
+    console.log('updating login ' + data.id);
+    var login = _.find(logins, function(o) {
+        return parseInt(data.id) === o.id;
+    });
+    if (login !== undefined) {
+        if (data.occupied === 'true' || data.occupied === true) {
+            login.occupied = true;
+            login.occupiedBy = data.occupiedBy; 
+        } else {
+            login.occupied = false;
+            login.occupiedBy = '';
+        }
+    } // fail silently otherwise
+    console.log(logins);
 };
 
 app.set('view engine', 'jade');
@@ -34,7 +47,7 @@ app.get('/grabs', function(req, res) {
 
 app.post('/grabs', function(req, res) {
     console.log(req.body);
-    grabLogin(req.body);
+    updateLogin(req.body);
     // TODO: inform all other clients through socket io
     res.send('done');
 });

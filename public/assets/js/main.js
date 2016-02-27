@@ -12,7 +12,7 @@
             if (login.occupied) {
                 $loginBox
                 .addClass('occupied')
-                .append($('<p></p>').text('Occupied by: ' + login.occupiedBy))
+                .append($('<p></p>').text('Occupied: ' + login.occupiedBy))
                 .click(function(e) {
                     selectedLogin = login;
                     vacateLogin(login);
