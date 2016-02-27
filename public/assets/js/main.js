@@ -52,7 +52,8 @@
     }
 
     // occupy selected login when the occupy button on the modal is clicked
-    $('#occupy-modal #occupy-button').click(function(e) {
+    $('#occupy-modal form').submit(function(e) {
+        e.preventDefault();
         occupyLogin(selectedLogin);
     });
 
