@@ -4,6 +4,7 @@
 
     var qlickViewlogins = [];
     var selectedLogin;
+    var socket = io();
 
     function renderLogins(logins) {
         $('#all-logins').html('');
@@ -15,7 +16,7 @@
                 .append($('<p></p>').text('Occupied: ' + login.occupiedBy))
                 .click(function(e) {
                     selectedLogin = login;
-                    vacateLogin(login);
+                    vacateLogin(login); // ask before vacating?
                 });
             } else {
                 $loginBox
@@ -30,30 +31,23 @@
         });
     }
 
-    function getLogins() {
-        $.get('/grabs', function(data) {
-            console.log(data);
-            qlickViewlogins = data;
-            renderLogins(qlickViewlogins);
-        });
-    }
-
     function occupyLogin(login) {
         login.occupied = true;
         login.occupiedBy = $('#occupy-modal #occupier').val();
         // TODO: form validation
         $.post('/grabs', login, function(response) {
-            getLogins();
             $('#occupy-modal #occupier').val('');
             $('#occupy-modal').modal('hide');
+            socket.emit('grabbed', login.occupiedBy + ' grabbed login ' + login.id);
         });
     }
 
     function vacateLogin(login) {
+        var previousOccupier = login.occupiedBy;
         login.occupied = false;
         login.occupiedBy = '';
         $.post('/grabs', login, function(response) {
-            getLogins();
+            socket.emit('grabbed', previousOccupier + ' vacated login ' + login.id);
         });
     }
 
@@ -62,7 +56,16 @@
         occupyLogin(selectedLogin);
     });
 
+    // when logins are updated on the backend re-render
+    socket.on('grabbed', function(logins) {
+        qlickViewlogins = logins;
+        renderLogins(qlickViewlogins);
+    });
+
     // initialize
-    getLogins();
+    $.get('/grabs', function(data) {
+        qlickViewlogins = data;
+        renderLogins(qlickViewlogins);
+    });
 
 })();

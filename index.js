@@ -1,10 +1,12 @@
 'use strict';
 
 var express = require('express');
+var app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 var bodyParser = require('body-parser');
 var _ = require('underscore');
 
-var app = express();
 var GLOBAL_PASSWORD = 'affinitas'; // TODO: not implemented yet
 var logins = [
     {id: 743, name: 'QlikView1', occupied:false, occupiedBy:''},
@@ -15,11 +17,11 @@ var logins = [
 ];
 
 var updateLogin = function(data) {
-    console.log('updating login ' + data.id);
     var login = _.find(logins, function(o) {
         return parseInt(data.id) === o.id;
     });
     if (login !== undefined) {
+        console.log('updating login ' + data.id);
         if (data.occupied === 'true' || data.occupied === true) {
             login.occupied = true;
             login.occupiedBy = data.occupiedBy; 
@@ -28,7 +30,6 @@ var updateLogin = function(data) {
             login.occupiedBy = '';
         }
     } // fail silently otherwise
-    console.log(logins);
 };
 
 app.set('view engine', 'jade');
@@ -46,13 +47,19 @@ app.get('/grabs', function(req, res) {
 });
 
 app.post('/grabs', function(req, res) {
-    console.log(req.body);
     updateLogin(req.body);
-    // TODO: inform all other clients through socket io
     res.send('done');
 });
 
+// sync data b/w all clients with socket io
+io.on('connection', function(socket) {
+    socket.on('grabbed', function(msg) {
+        console.log(msg);
+        io.emit('grabbed', logins);
+    });
+});
+
 // start server
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
+http.listen(3000, function(){
+  console.log('listening on *:3000');
 });
