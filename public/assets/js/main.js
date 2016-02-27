@@ -9,7 +9,7 @@
     function renderLogins(logins) {
         $('#all-logins').html('');
         $.each(logins, function(i, login) {
-            var $loginBox = $('<div class="panel panel-default"></div>').text(login.name);
+            var $loginBox = $('<div class="login-box"></div>').text(login.name);
             if (login.occupied) {
                 $loginBox
                 .addClass('occupied')
