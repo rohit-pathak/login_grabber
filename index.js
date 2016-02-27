@@ -11,24 +11,11 @@ var logins = [
     {id: 3, name: 'QlikView3', occupied:false, occupiedBy:''},
     {id: 4, name: 'QlikView4', occupied:true, occupiedBy:'shreyans'},
     {id: 5, name: 'QlikView5', occupied:false, occupiedBy:''},
-]; 
+];
 
-var random = function(n) {
-    return Math.round(Math.random() * 10 * n);
-};
-
-var grabLogin = function(info) {
-    var user = {};
-    user.name = info.name || 'randomUser' + random(2);
-    user.id = random(6);
-    return user;
-};
-
-var createAccount = function(info) {
-    var account = {};
-    account.name = info.name || 'randomAccount' + random(2);
-    account.id = random(6);
-    return account;
+var grabLogin = function(login) {
+    console.log('grabbing login');
+    console.log(login);
 };
 
 app.set('view engine', 'jade');
@@ -46,10 +33,11 @@ app.get('/grabs', function(req, res) {
 });
 
 app.post('/grabs', function(req, res) {
-    // users.push(createUser(req.body));
-    res.redirect('/');
+    console.log(req.body);
+    grabLogin(req.body);
+    // TODO: inform all other clients through socket io
+    res.send('done');
 });
-
 
 // start server
 app.listen(3000, function () {

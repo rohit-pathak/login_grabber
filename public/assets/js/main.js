@@ -39,15 +39,25 @@
     }
 
     function occupyLogin(login) {
-        console.log('occupying login');
-        console.log(login);
+        login.occupied = true;
+        login.occupiedBy = $('#occupy-modal #occupier').val();
+        // TODO: form validation
+        $.post('/grabs', login, function(response) {
+            getLogins();
+            $('#occupy-modal #occupier').val('');
+            $('#occupy-modal').modal('hide');
+        });
     }
 
     function vacateLogin(login) {
-        console.log('vacating login');
-        console.log(login);
+        login.occupied = false;
+        login.occupiedBy = '';
+        $.post('/grabs', login, function(response) {
+            getLogins();
+        });
     }
 
+    // occupy selected login when the occupy button on the modal is clicked
     $('#occupy-modal #occupy-button').click(function(e) {
         occupyLogin(selectedLogin);
     });
