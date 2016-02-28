@@ -6,6 +6,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var bodyParser = require('body-parser');
 var _ = require('underscore');
+var port  = Number(process.env.PORT || 3000);
 
 var GLOBAL_PASSWORD = 'affinitas'; // TODO: not implemented yet
 var logins = [
@@ -60,6 +61,6 @@ io.on('connection', function(socket) {
 });
 
 // start server
-http.listen(3000, function(){
-  console.log('listening on *:3000');
+http.listen(port, function(){
+  console.log('listening on *:' + port);
 });
