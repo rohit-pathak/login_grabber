@@ -1,4 +1,4 @@
-.login-box, .occupied {
+.login-box {
     margin-right: 15px;
     margin-top: 15px;
     padding: 10px;
@@ -7,6 +7,11 @@
     background-color: #588F27;
     color: #fff;
     float: left;
+    cursor: pointer;
+}
+
+.login-box:hover {
+    opacity: 0.7;
 }
 
 .login-box.occupied {
