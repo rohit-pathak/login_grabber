@@ -9,11 +9,11 @@ var _ = require('underscore');
 
 var GLOBAL_PASSWORD = 'affinitas'; // TODO: not implemented yet
 var logins = [
-    {id: 743, name: 'QlikView1', occupied:false, occupiedBy:''},
-    {id: 234, name: 'QlikView2', occupied:false, occupiedBy:''},
-    {id: 323, name: 'QlikView3', occupied:false, occupiedBy:''},
-    {id: 453, name: 'QlikView4', occupied:true, occupiedBy:'shreyans'},
-    {id: 557, name: 'QlikView5', occupied:false, occupiedBy:''},
+    {id: 743, name: 'QlikView5', occupied:false, occupiedBy:''},
+    {id: 234, name: 'QlikView6', occupied:false, occupiedBy:''},
+    {id: 323, name: 'QlikView7', occupied:false, occupiedBy:''},
+    {id: 453, name: 'QlikView14', occupied:false, occupiedBy:''},
+    {id: 557, name: 'QlikView15', occupied:false, occupiedBy:''},
 ];
 
 var updateLogin = function(data) {
