@@ -10,7 +10,8 @@ var port  = Number(process.env.PORT || 3000);
 
 var GLOBAL_PASSWORD = 'affinitas'; // TODO: not implemented yet
 var logins = [
-    {id: 743, name: 'QlikView5', occupied:false, occupiedBy:''},
+    {id: 743, name: 'QlikView4', occupied:false, occupiedBy:''},
+    {id: 653, name: 'QlikView5', occupied:false, occupiedBy:''},
     {id: 234, name: 'QlikView6', occupied:false, occupiedBy:''},
     {id: 323, name: 'QlikView7', occupied:false, occupiedBy:''},
     {id: 453, name: 'QlikView14', occupied:false, occupiedBy:''},
