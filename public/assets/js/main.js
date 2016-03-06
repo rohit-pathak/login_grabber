@@ -6,29 +6,37 @@
     var selectedLogin;
     var socket = io();
 
-    function renderLogins(logins) {
-        $('#all-logins').html('');
-        _.each(logins, function(login) {
-            var $loginBox = $('<div class="login-box"></div>').text(login.name);
-            if (login.occupied) {
-                $loginBox
-                .addClass('occupied')
-                .append($('<p></p>').text('Occupied: ' + login.occupiedBy))
-                .click(function(e) {
-                    selectedLogin = login;
-                    vacateLogin(login); // ask before vacating?
-                });
-            } else {
-                $loginBox
-                .append('<p>Vacant</p>')
-                .click(function(e) {
-                    selectedLogin = login;
-                    $('#occupy-modal .login-name').text(login.name);
-                    $('#occupy-modal').modal('show');
-                });
-            }
-            $('#all-logins').append($loginBox);
-        });
+    function renderLogins(allLogins) {
+        var render = function(logins, teamDiv) {
+            $(teamDiv).html('');
+            _.each(logins, function(login) {
+                var $loginBox = $('<div class="login-box"></div>').text(login.name);
+                if (login.occupied) {
+                    $loginBox
+                    .addClass('occupied')
+                    .append($('<p></p>').text('Occupied: ' + login.occupiedBy))
+                    .click(function(e) {
+                        selectedLogin = login;
+                        vacateLogin(login); // ask before vacating?
+                    });
+                } else {
+                    $loginBox
+                    .append('<p>Vacant</p>')
+                    .click(function(e) {
+                        selectedLogin = login;
+                        $('#occupy-modal .login-name').text(login.name);
+                        $('#occupy-modal').modal('show');
+                    });
+                }
+                $(teamDiv).append($loginBox);
+            });
+        };
+        render(_.filter(allLogins, function(l) {
+            return l.team == 'programmatic';
+        }), '#programmatic-logins');
+        render(_.filter(allLogins, function(l) {
+            return l.team == 'display';
+        }), '#display-logins');
     }
 
     function occupyLogin(login) {

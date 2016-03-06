@@ -1,9 +1,11 @@
 .login-box {
-    margin-bottom: 5px;
-    padding: 5px;
+    margin-bottom: 3px;
+    padding: 3px;
     background-color: #588F27;
     color: #fff;
     cursor: pointer;
+    padding-left: 5px;
+
 }
 
 .login-box:hover {
