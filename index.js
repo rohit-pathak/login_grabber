@@ -6,32 +6,30 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var bodyParser = require('body-parser');
 var _ = require('underscore');
+var Datastore = require('nedb');
+
+var db = new Datastore({ filename: 'qvlg.db', autoload: true });
 var port  = Number(process.env.PORT || 3000);
-
 var GLOBAL_PASSWORD = 'affinitas'; // TODO: not implemented yet
-var logins = [
-    {id: 743, name: 'QlikView4', occupied:false, occupiedBy:''},
-    {id: 653, name: 'QlikView5', occupied:false, occupiedBy:''},
-    {id: 234, name: 'QlikView6', occupied:false, occupiedBy:''},
-    {id: 323, name: 'QlikView7', occupied:false, occupiedBy:''},
-    {id: 453, name: 'QlikView14', occupied:false, occupiedBy:''},
-    {id: 557, name: 'QlikView15', occupied:false, occupiedBy:''},
-];
 
-var updateLogin = function(data) {
-    var login = _.find(logins, function(o) {
-        return parseInt(data.id) === o.id;
-    });
-    if (login !== undefined) {
-        console.log('updating login ' + data.id);
-        if (data.occupied === 'true' || data.occupied === true) {
-            login.occupied = true;
-            login.occupiedBy = data.occupiedBy; 
-        } else {
-            login.occupied = false;
-            login.occupiedBy = '';
+var updateLogin = function(data, successCallback) {
+    var updateData = {};
+    if (data.occupied === 'true' || data.occupied === true) {
+        updateData.occupied = true;
+        updateData.occupiedBy = data.occupiedBy; 
+    } else {
+        updateData.occupied = false;
+        updateData.occupiedBy = '';
+    }
+    db.update(
+        {_id: data._id}, 
+        {$set: updateData}, 
+        {returnUpdatedDocs: true},
+        function(err, numAffected, affectedDocuments, upsert) {
+            console.log('updated following login: ' + affectedDocuments.name);
+            successCallback();
         }
-    } // fail silently otherwise
+    );
 };
 
 app.set('view engine', 'jade');
@@ -45,19 +43,23 @@ app.get('/', function(req, res) {
 });
 
 app.get('/grabs', function(req, res) {
-    res.send(logins);
+    db.find({}, function(err, docs) {
+        res.send(docs);
+    });
 });
 
 app.post('/grabs', function(req, res) {
-    updateLogin(req.body);
-    res.send('done');
+    updateLogin(req.body, function(){ res.send('done'); });
 });
 
 // sync data b/w all clients with socket io
 io.on('connection', function(socket) {
     socket.on('grabbed', function(msg) {
         console.log(msg);
-        io.emit('grabbed', logins);
+        db.find({}, function(err, docs) {
+            io.emit('grabbed', docs);
+        });
+        
     });
 });
 

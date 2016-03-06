@@ -38,7 +38,7 @@
         $.post('/grabs', login, function(response) {
             $('#occupy-modal #occupier').val('');
             $('#occupy-modal').modal('hide');
-            socket.emit('grabbed', login.occupiedBy + ' grabbed login ' + login.id);
+            socket.emit('grabbed', login.occupiedBy + ' grabbed login ' + login.name);
         });
     }
 
@@ -47,7 +47,7 @@
         login.occupied = false;
         login.occupiedBy = '';
         $.post('/grabs', login, function(response) {
-            socket.emit('grabbed', previousOccupier + ' vacated login ' + login.id);
+            socket.emit('grabbed', previousOccupier + ' vacated login ' + login.name);
         });
     }
 
@@ -60,6 +60,7 @@
     // when logins are updated on the backend re-render
     socket.on('grabbed', function(logins) {
         qlickViewlogins = logins;
+        console.log(qlickViewlogins);
         renderLogins(qlickViewlogins);
     });
 
