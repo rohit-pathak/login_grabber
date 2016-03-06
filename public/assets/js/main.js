@@ -8,7 +8,7 @@
 
     function renderLogins(logins) {
         $('#all-logins').html('');
-        $.each(logins, function(i, login) {
+        _.each(_.sortBy(logins, function(l) { return l.name }), function(login) {
             var $loginBox = $('<div class="login-box"></div>').text(login.name);
             if (login.occupied) {
                 $loginBox
@@ -60,7 +60,6 @@
     // when logins are updated on the backend re-render
     socket.on('grabbed', function(logins) {
         qlickViewlogins = logins;
-        console.log(qlickViewlogins);
         renderLogins(qlickViewlogins);
     });
 

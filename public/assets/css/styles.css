@@ -1,12 +1,8 @@
 .login-box {
-    margin-right: 15px;
-    margin-top: 15px;
-    padding: 10px;
-    height: 130px;
-    width: 130px;
+    margin-bottom: 5px;
+    padding: 5px;
     background-color: #588F27;
     color: #fff;
-    float: left;
     cursor: pointer;
 }
 
