@@ -8,7 +8,7 @@
 
     function renderLogins(logins) {
         $('#all-logins').html('');
-        _.each(_.sortBy(logins, function(l) { return l.name }), function(login) {
+        _.each(logins, function(login) {
             var $loginBox = $('<div class="login-box"></div>').text(login.name);
             if (login.occupied) {
                 $loginBox

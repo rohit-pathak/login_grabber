@@ -6,9 +6,10 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var bodyParser = require('body-parser');
 var _ = require('underscore');
-var Datastore = require('nedb');
+var MongoClient = require('mongodb').MongoClient;
+var assert = require('assert');
 
-var db = new Datastore({ filename: 'qvlg.db', autoload: true });
+var url = 'mongodb://rohit:rohit@ds023418.mlab.com:23418/affinitasqlmdev';
 var port  = Number(process.env.PORT || 3000);
 var GLOBAL_PASSWORD = 'affinitas'; // TODO: not implemented yet
 
@@ -21,15 +22,29 @@ var updateLogin = function(data, successCallback) {
         updateData.occupied = false;
         updateData.occupiedBy = '';
     }
-    db.update(
-        {_id: data._id}, 
-        {$set: updateData}, 
-        {returnUpdatedDocs: true},
-        function(err, numAffected, affectedDocuments, upsert) {
-            console.log('updated following login: ' + affectedDocuments.name);
-            successCallback();
-        }
-    );
+    console.log('updating login ' + data.name);
+    MongoClient.connect(url, function (err, db) {
+        var collection = db.collection('logins');
+        collection.updateOne(
+            {'name': data.name},
+            {$set: updateData},
+            function (e, r) {
+                e ? console.log(e) : console.log('update successful');
+                successCallback();
+                db.close();
+            });
+    });
+};
+
+var getLogins = function(successCallback) {
+    MongoClient.connect(url, function(err, db) {
+        var collection = db.collection('logins');
+        collection.find().toArray().then(function(docs) {
+            console.log('got all logins');
+            successCallback(docs);
+            db.close();
+        });
+    });
 };
 
 app.set('view engine', 'jade');
@@ -43,8 +58,9 @@ app.get('/', function(req, res) {
 });
 
 app.get('/grabs', function(req, res) {
-    db.find({}, function(err, docs) {
-        res.send(docs);
+    getLogins(function(data) {
+        console.log('post successful');
+        res.send(data);
     });
 });
 
@@ -56,14 +72,13 @@ app.post('/grabs', function(req, res) {
 io.on('connection', function(socket) {
     socket.on('grabbed', function(msg) {
         console.log(msg);
-        db.find({}, function(err, docs) {
-            io.emit('grabbed', docs);
+        getLogins(function(data) {
+            io.emit('grabbed', data);
         });
-        
     });
 });
 
 // start server
 http.listen(port, function(){
-  console.log('listening on *:' + port);
+    console.log('listening on *:' + port);
 });
