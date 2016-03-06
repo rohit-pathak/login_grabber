@@ -1,7 +1,7 @@
 .login-box {
     margin-bottom: 3px;
     padding: 3px;
-    background-color: #588F27;
+    background-color: #7EA814;
     color: #fff;
     cursor: pointer;
     padding-left: 5px;
@@ -13,5 +13,5 @@
 }
 
 .login-box.occupied {
-    background-color: #B64926; 
+    background-color: #D93F07; 
 }
