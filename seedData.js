@@ -14,7 +14,15 @@ var logins = [
     {name: 'QlikView6', occupied:false, occupiedBy:''},
     {name: 'QlikView7', occupied:false, occupiedBy:''},
     {name: 'QlikView14', occupied:false, occupiedBy:''},
-    {name: 'QlikView15', occupied:false, occupiedBy:''},
+    {name: 'QlikView2', occupied:false, occupiedBy:''},
+    {name: 'QlikView3', occupied:false, occupiedBy:''},
+    {name: 'QlikView9', occupied:false, occupiedBy:''},
+    {name: 'QlikView10', occupied:false, occupiedBy:''},
+    {name: 'QlikView11', occupied:false, occupiedBy:''},
+    {name: 'QlikView12', occupied:false, occupiedBy:''},
+    {name: 'QlikView13', occupied:false, occupiedBy:''},
+    {name: 'QlikView20', occupied:false, occupiedBy:''},
+    {name: 'QlikView21', occupied:false, occupiedBy:''},
 ];
 
 function seed() {
