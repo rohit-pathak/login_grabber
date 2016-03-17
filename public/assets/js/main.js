@@ -2,6 +2,8 @@
 
 (function() {
 
+    var username = 'user' + Math.round(Math.random()*100);
+    console.log(username);
     var qlickViewlogins = [];
     var selectedLogin;
     var socket = io();
@@ -69,6 +71,15 @@
     socket.on('grabbed', function(logins) {
         qlickViewlogins = logins;
         renderLogins(qlickViewlogins);
+    });
+
+    $('#welcome form').submit(function(e) {
+        e.preventDefault();
+        username = $(this).find('input').val();
+        $('#username').html(username + ' ');
+        $('#welcome').addClass('hide');
+        $('#all-logins, #logged-in-user').removeClass('hide');
+
     });
 
     // initialize

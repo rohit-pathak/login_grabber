@@ -9,27 +9,32 @@ html
     .container-fluid
 
       h6 Affinitas
-      h4 Qlikview Login Manager
-      
-      .row
-        .col-sm-12
-          p 
-            small Useful Tip: After you click on a box to occupy a Login, press TAB directly to avoid clicking the Text Box to enter your name.
+      h5 Qlikview Login Manager
+      h6#logged-in-user.hide Logged in as 
+        span#username 
+        span
+          small
+            a(href="") change
 
-      div.row
-        div.col-sm-2
+      #welcome
+        h3 Hello!
+        .row
+          .col-sm-3
+            form
+              .form-group
+                input#username.form-control.input-lg(placeholder="What is your name?", required="")
+              button.btn.btn-primary(type="submit") Login
+
+
+      #all-logins.row.hide
+        .col-sm-2
           h4 Team Display
-          div#display-logins
+          #display-logins
           br
-        div.col-sm-2
+        .col-sm-2
           h4 Team Programmatic
-          div#programmatic-logins
+          #programmatic-logins
           br        
-
-          
-
-          
-
 
       // Occupy Modal
       #occupy-modal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='occupyLabel')
