@@ -3,7 +3,6 @@
 (function() {
 
     var username = 'user' + Math.round(Math.random()*100);
-    console.log(username);
     var qlickViewlogins = [];
     var selectedLogin;
     var socket = io();
@@ -26,8 +25,7 @@
                     .append('<p>Vacant</p>')
                     .click(function(e) {
                         selectedLogin = login;
-                        $('#occupy-modal .login-name').text(login.name);
-                        $('#occupy-modal').modal('show');
+                        occupyLogin(login);
                     });
                 }
                 $(teamDiv).append($loginBox);
@@ -43,11 +41,9 @@
 
     function occupyLogin(login) {
         login.occupied = true;
-        login.occupiedBy = $('#occupy-modal #occupier').val();
+        login.occupiedBy = username;
         // TODO: form validation
         $.post('/grabs', login, function(response) {
-            $('#occupy-modal #occupier').val('');
-            $('#occupy-modal').modal('hide');
             socket.emit('grabbed', login.occupiedBy + ' grabbed login ' + login.name);
         });
     }
@@ -61,25 +57,18 @@
         });
     }
 
-    // occupy selected login when the occupy button on the modal is clicked
-    $('#occupy-modal form').submit(function(e) {
-        e.preventDefault();
-        occupyLogin(selectedLogin);
-    });
-
-    // when logins are updated on the backend re-render
-    socket.on('grabbed', function(logins) {
-        qlickViewlogins = logins;
-        renderLogins(qlickViewlogins);
-    });
-
     $('#welcome form').submit(function(e) {
         e.preventDefault();
         username = $(this).find('input').val();
         $('#username').html(username + ' ');
         $('#welcome').addClass('hide');
         $('#all-logins, #logged-in-user').removeClass('hide');
+    });
 
+    // when logins are updated on the backend re-render
+    socket.on('grabbed', function(logins) {
+        qlickViewlogins = logins;
+        renderLogins(qlickViewlogins);
     });
 
     // initialize
