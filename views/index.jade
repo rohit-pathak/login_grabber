@@ -9,7 +9,7 @@ html
     .container-fluid
 
       h6 Affinitas
-      h5 Qlikview Login Manager
+      h4 Qlikview Login Manager
       h6#logged-in-user.hide Logged in as 
         span#username 
         span
@@ -22,8 +22,8 @@ html
           .col-sm-3
             form
               .form-group
-                input#username.form-control.input-lg(placeholder="What is your name?", required="")
-              button.btn.btn-primary(type="submit") Login
+                input#username.form-control.input-lg(placeholder="What is your name?", required="", autofocus="")
+              button.btn.btn-success.btn-lg(type="submit") Login
 
 
       #all-logins.row.hide

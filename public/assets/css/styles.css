@@ -15,3 +15,11 @@
 .login-box.occupied {
     background-color: #D93F07; 
 }
+
+#welcome input, #welcome button {
+    border-radius: 0px;
+}
+
+#username {
+    text-decoration: underline;
+}
