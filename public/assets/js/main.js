@@ -62,7 +62,7 @@
         username = $(this).find('input').val();
         $('#username').html(username + ' ');
         $('#welcome').addClass('hide');
-        $('#all-logins, #logged-in-user').removeClass('hide');
+        $('#logged-in-user').removeClass('hide');
     });
 
     // when logins are updated on the backend re-render

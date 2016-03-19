@@ -17,16 +17,15 @@ html
             a(href="") change
 
       #welcome
-        h3 Hello!
         .row
           .col-sm-3
-            form
+            form.form-inline
               .form-group
-                input#username.form-control.input-lg(placeholder="What is your name?", required="", autofocus="")
-              button.btn.btn-success.btn-lg(type="submit") Login
+                input#username.form-control(placeholder="What is your name?", required="", autofocus="")
+              button.btn.btn-default(type="submit") Login
 
 
-      #all-logins.row.hide
+      #all-logins.row
         .col-sm-2
           h4 Team Display
           #display-logins
