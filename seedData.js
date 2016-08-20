@@ -9,19 +9,24 @@ var ObjectId = require('mongodb').ObjectID;
 var url = 'mongodb://rohit:rohit@ds023418.mlab.com:23418/affinitasqlmdev';
 
 var logins = [
-    {name: 'QlikView4', occupied:false, team: 'programmatic', occupiedBy:''},
-    {name: 'QlikView5', occupied:false, team: 'programmatic', occupiedBy:''},
-    {name: 'QlikView6', occupied:false, team: 'programmatic', occupiedBy:''},
-    {name: 'QlikView7', occupied:false, team: 'programmatic', occupiedBy:''},
-    {name: 'QlikView14', occupied:false, team: 'programmatic', occupiedBy:''},
-    {name: 'QlikView2', occupied:false, team: 'display', occupiedBy:''},
-    {name: 'QlikView3', occupied:false, team: 'display', occupiedBy:''},
-    {name: 'QlikView9', occupied:false, team: 'display', occupiedBy:''},
-    {name: 'QlikView10', occupied:false, team: 'display', occupiedBy:''},
-    {name: 'QlikView11', occupied:false, team: 'display', occupiedBy:''},
-    {name: 'QlikView12', occupied:false, team: 'display', occupiedBy:''},
-    {name: 'QlikView13', occupied:false, team: 'display', occupiedBy:''},
-    {name: 'QlikView20', occupied:false, team: 'display', occupiedBy:''},
+    {name: 'QlikView4', occupied:false, occupiedBy:'', team: 'programmatic'},
+    {name: 'QlikView5', occupied:false, occupiedBy:'', team: 'programmatic'},
+    {name: 'QlikView6', occupied:false, occupiedBy:'', team: 'programmatic'},
+    {name: 'QlikView7', occupied:false, occupiedBy:'', team: 'programmatic'},
+    {name: 'QlikView14', occupied:false, occupiedBy:'', team: 'programmatic'},
+    {name: 'QlikView15', occupied:false, occupiedBy:'', team: 'programmatic'},
+    {name: 'QlikView27', occupied:false, occupiedBy:'', team: 'programmatic'},
+    {name: 'QlikView28', occupied:false, occupiedBy:'', team: 'programmatic'},
+    {name: 'QlikView2', occupied:false, occupiedBy:'', team: 'display'},
+    {name: 'QlikView3', occupied:false, occupiedBy:'', team: 'display'},
+    {name: 'QlikView9', occupied:false, occupiedBy:'', team: 'display'},
+    {name: 'QlikView10', occupied:false, occupiedBy:'', team: 'display'},
+    {name: 'QlikView11', occupied:false, occupiedBy:'', team: 'display'},
+    {name: 'QlikView12', occupied:false, occupiedBy:'', team: 'display'},
+    {name: 'QlikView13', occupied:false, occupiedBy:'', team: 'display'},
+    {name: 'QlikView20', occupied:false, occupiedBy:'', team: 'display'},
+    {name: 'QlikView25', occupied:false, occupiedBy:'', team: 'display'},
+    {name: 'QlikView26', occupied:false, occupiedBy:'', team: 'display'},
 ];
 
 function seed() {
