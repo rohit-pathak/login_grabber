@@ -16,7 +16,7 @@ var logins = [
     {name: 'QlikView14', occupied:false, occupiedBy:'', team: 'programmatic'},
     {name: 'QlikView15', occupied:false, occupiedBy:'', team: 'programmatic'},
     {name: 'QlikView27', occupied:false, occupiedBy:'', team: 'programmatic'},
-    {name: 'QlikView28', occupied:false, occupiedBy:'', team: 'programmatic'},
+    {name: 'QlikView21', occupied:false, occupiedBy:'', team: 'programmatic'},
     {name: 'QlikView2', occupied:false, occupiedBy:'', team: 'display'},
     {name: 'QlikView3', occupied:false, occupiedBy:'', team: 'display'},
     {name: 'QlikView9', occupied:false, occupiedBy:'', team: 'display'},
@@ -26,7 +26,9 @@ var logins = [
     {name: 'QlikView13', occupied:false, occupiedBy:'', team: 'display'},
     {name: 'QlikView20', occupied:false, occupiedBy:'', team: 'display'},
     {name: 'QlikView25', occupied:false, occupiedBy:'', team: 'display'},
-    {name: 'QlikView26', occupied:false, occupiedBy:'', team: 'display'},
+    {name: 'QlikProduct', occupied:false, occupiedBy:'', team: 'product'},
+    {name: 'QlikProduct2', occupied:false, occupiedBy:'', team: 'product'},
+    {name: 'QlikProduct3', occupied:false, occupiedBy:'', team: 'product'},
 ];
 
 function seed() {
